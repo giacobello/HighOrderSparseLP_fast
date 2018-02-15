@@ -1,0 +1,76 @@
+The slp_sm (sparse linear prediction with splitting methods) solves 
+the sparse linear prediction problem 
+
+   minimize   ||x-Xa||_1 + gamma ||a||_1
+      a
+
+where X is a convolution matrix formed from the signal x. 
+
+The considered methods for solving the above problem are
+  1: Douglas-Rachford (DR)
+  2: Alternating direction method of multipliers (ADMM)
+
+Provided is both a Matlab and a C++ implementation.
+    mlib/utilities: Matlab implementation
+    src: C++ implementation
+
+This software is used in the paper
+
+   Fast Algorithms for High-Order Sparse Linear Prediction
+   with Applications to Speech Processing
+
+   Tobias L. Jensen, Daniele Giacobello, Toon van Waterschoot
+   and Mads G. Christensen
+   
+   Speech Communication, 2016
+
+   Please give reference if you use this software.
+
+
+= MATLAB:
+=========
+
+To use the matlab implementation, it is necessary to compile two c-files. To do 
+this first run "make" in the root directory of this software. If you do not have a c-compiler, follow the instructions on the screen.
+
+Then add /mlib and /utilities to your path.
+
+An example of usage is given in /example/example_dr_admm_slp.m
+
+Location:
+   /mlib and /utilities
+
+Requirements:
+    + A c-compiler
+
+The following libraries are necessary for running the tests:
+
+  - mlib/test.m and utilities/test.m
+    + Matlabs unittest framework. Available from release 2013a 
+    + cvx: http://cvxr.com/cvx/
+
+
+= C++ implementation:
+=====================
+
+Location:
+   /src
+
+The following libraries are are necessary for running the programs:
+    + fftw3 library (fftw.org)
+    + BLAS and LAPACK libraries
+    / optional Math Kernel Library (MKL)
+
+
+The following libraries are necessary for running the tests in src/unittest:
+    + Googletest,  https://code.google.com/p/googletest/
+    + fftw3 library (fftw.org)
+    + BLAS and LAPACK libraries
+    / optional Math Kernel Library (MKL)
+
+The C++ source code is implemented to benefit from Math Kernel Library
+If you want to make use of this, compile with -DMKL and add the necessary
+libraries to the link command. Otherwise, a link command along the lines 
+-lblas -llapack -lfftw3 -lfftw3f should do. See src/Makefile
+
+
